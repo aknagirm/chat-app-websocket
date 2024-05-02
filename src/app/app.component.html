@@ -1,0 +1,40 @@
+<div id="chat-applicaton">
+  <h2>Chat Application - Angular client</h2>
+  <div id="chat-window">
+    <div id="output" *ngFor="let data of chatList">
+      <p
+        [ngStyle]="{
+          'text-align': data.userName === userName ? 'end' : 'initial'
+        }"
+      >
+        <strong
+          >{{ data.userName === userName ? "You" : data.userName }} : </strong
+        >{{ data.message }}
+      </p>
+    </div>
+    <div id="feedback" *ngIf="typingData && typingData !== userName">
+      <p>{{ typingData }} is typing...</p>
+    </div>
+  </div>
+  <input id="handle" type="text" [(ngModel)]="userName" placeholder="Handle" />
+  <div class="bottom-row">
+    <input
+      id="message"
+      type="text"
+      [disabled]="!userName"
+      [(ngModel)]="message"
+      placeholder="{{ !userName ? 'first provide your name' : 'Message' }}"
+      autocomplete="off"
+      (keypress)="messageTyping()"
+      (focusout)="typingStop()"
+    />
+    <button
+      type="button"
+      id="send"
+      style="cursor: pointer"
+      (click)="sendMessage()"
+    >
+      Send
+    </button>
+  </div>
+</div>
